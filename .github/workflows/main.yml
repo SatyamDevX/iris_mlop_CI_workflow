@@ -1,4 +1,4 @@
-name: Run IRIS Tests with CML
+name: Run IRIS Tests with CML 5
 
 on:
   pull_request:
