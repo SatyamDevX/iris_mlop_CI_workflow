@@ -1,8 +1,7 @@
-name: Run IRIS Tests with CML 5
+name: Run IRIS Tests with CML
 
 on:
-  pull_request:
-    branches: [main]
+  workflow_dispatch:  # <-- Manual trigger
 
 jobs:
   test:
@@ -22,15 +21,17 @@ jobs:
           pip install -r requirements.txt
           pip install pytest
 
+      - name: Train model
+        run: |
+          python src/train.py
+
       - name: Run tests and save result
         run: |
           pytest tests > result.txt
 
-      - name: Setup CML and post report
+      - name: Setup CML
         uses: iterative/setup-cml@v1
 
-      - name: Comment on the PR
-        env:
-          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Comment test results
         run: |
-          cml comment < result.txt
+          echo "${{ secrets.GITHUB_TOKEN }}" | cml comment --token - < result.txt
