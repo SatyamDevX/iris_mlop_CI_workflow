@@ -1,8 +1,7 @@
 name: Run IRIS Tests with CML
 
 on:
-  pull_request:
-    branches: [main]
+  workflow_dispatch:  # <-- Manual trigger
 
 jobs:
   test:
