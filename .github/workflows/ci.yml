@@ -23,7 +23,9 @@ jobs:
 
       - name: Run tests and save result
         run: |
-          pytest tests > result.txt
+          echo "## 🧪 Pytest Results" > result.txt
+          pytest tests --tb=short >> result.txt
+
 
       - name: Setup CML and post report
         uses: iterative/setup-cml@v1
